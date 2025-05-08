@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Livre - Compre seu iPhone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .ml-yellow {
+            background-color: #fff159;
+        }
+        
+        .ml-blue {
+            color: #3483fa;
+        }
+        
+        .ml-dark-blue {
+            background-color: #2968c8;
+        }
+        
+        .ml-button-blue {
+            background-color: #3483fa;
+        }
+        
+        .ml-button-blue:hover {
+            background-color: #2968c8;
+        }
+        
+        .ml-button-outline {
+            border: 1px solid #3483fa;
+            color: #3483fa;
+        }
+        
+        .ml-button-outline:hover {
+            background-color: #f5f9ff;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: ">";
+            margin: 0 8px;
+            color: #666;
+        }
+        
+        .installments {
+            color: #00a650;
+        }
+        
+        .free-shipping {
+            color: #00a650;
+        }
+        
+        .discount-badge {
+            background-color: #fef6e6;
+            color: #f27c1e;
+        }
+        
+        .thumbnail {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .thumbnail:hover {
+            border-color: #3483fa;
+        }
+        
+        .thumbnail.active {
+            border-color: #3483fa;
+            box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.3);
+        }
+        
+        .color-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .color-option.active {
+            border-color: #3483fa !important;
+            box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.3);
+        }
+        
+        .storage-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .storage-option.active {
+            border-color: #3483fa !important;
+            color: #3483fa;
+            background-color: #f5f9ff;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #f27c1e;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.3);
+        }
+        
+        .main-image {
+            min-height: 400px;
+            background-color: #f8f9fa;
+        }
+        
+        .payment-method {
+            transition: all 0.2s ease;
+        }
+        
+        .payment-method:hover {
+            transform: translateY(-2px);
+        }
+        
+        .payment-method.active {
+            border-color: #3483fa;
+            background-color: #f5f9ff;
+        }
+        
+        .success-animation {
+            animation: bounce 0.5s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="ml-yellow py-2 px-4 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="#" class="mr-4">
+                        <img src="https://logodownload.org/wp-content/uploads/2016/08/mercado-livre-logo-8.png" alt="Mercado Livre" class="h-9">
+                    </a>
+                    <div class="relative w-full max-w-xl hidden md:block">
+                        <input type="text" placeholder="Buscar produtos, marcas e muito mais..." 
+                               class="w-full py-2 px-4 rounded-md shadow-sm focus:outline-none search-input">
+                        <button class="absolute right-0 top-0 h-full px-4 bg-gray-100 rounded-r-md hover:bg-gray-200 transition">
+                            <i class="fas fa-search text-gray-500"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center">
+                    <a href="#" class="ml-4 text-sm hover:text-blue-500 transition">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Informe seu CEP</span>
+                    </a>
+                    <a href="#" class="ml-4 text-sm hover:text-blue-500 transition">
+                        <i class="far fa-user"></i>
+                        <span>Entre</span>
+                    </a>
+                    <a href="#" class="ml-4 text-sm hover:text-blue-500 transition">
+                        <i class="far fa-heart"></i>
+                        <span>Favoritos</span>
+                    </a>
+                    <a href="#" id="cart-button" class="ml-4 text-sm hover:text-blue-500 transition relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Carrinho</span>
+                        <span id="cart-count" class="cart-count hidden">0</span>
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile search and menu -->
+            <div class="md:hidden mt-2">
+                <div class="relative w-full">
+                    <input type="text" placeholder="Buscar..." 
+                           class="w-full py-2 px-4 rounded-md shadow-sm focus:outline-none search-input">
+                    <button class="absolute right-0 top-0 h-full px-4 bg-gray-100 rounded-r-md hover:bg-gray-200 transition">
+                        <i class="fas fa-search text-gray-500"></i>
+                    </button>
+                </div>
+                
+                <div id="mobile-menu" class="mobile-menu bg-white rounded-md shadow-md mt-2">
+                    <div class="p-4 space-y-3">
+                        <a href="#" class="block hover:text-blue-500 transition">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Informe seu CEP
+                        </a>
+                        <a href="#" class="block hover:text-blue-500 transition">
+                            <i class="far fa-user mr-2"></i> Entre
+                        </a>
+                        <a href="#" class="block hover:text-blue-500 transition">
+                            <i class="far fa-heart mr-2"></i> Favoritos
+                        </a>
+                        <a href="#" id="mobile-cart-button" class="block hover:text-blue-500 transition relative">
+                            <i class="fas fa-shopping-cart mr-2"></i> Carrinho
+                            <span id="mobile-cart-count" class="cart-count hidden">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Categories -->
+    <nav class="bg-white py-2 px-4 shadow-sm hidden md:block">
+        <div class="container mx-auto">
+            <ul class="flex space-x-6 text-sm">
+                <li><a href="#" class="hover:text-blue-500 transition">Categorias</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Ofertas</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Histórico</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Supermercado</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Moda</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Vender</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-4 px-4">
+        <!-- Banner -->
+        <div class="mb-6 rounded-md overflow-hidden">
+            <img src="https://abramark.com.br/wp-content/uploads/2022/01/bannernoticias-mercado-livre.png" 
+                 alt="Banner Promocional" 
+                 class="w-full rounded-md hover:scale-105 transition-transform duration-500">
+        </div>
+
+        <!-- Products Grid -->
+        <div class="bg-white rounded-md p-4 mb-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">iPhone - Encontre o modelo perfeito para você nessa PROMOÇÃO</h2>
+                <a href="#" class="text-blue-500 text-sm hover:underline">Ver todos</a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- iPhone 13 -->
+                <div class="product-card bg-white rounded-md p-3 border border-gray-100 cursor-pointer" 
+                     onclick="showProductDetail('iphone13')">
+                    <div class="h-60 flex flex-col items-center justify-between mb-3 relative">
+                        <img src="https://m.media-amazon.com/images/I/41-iKVywQBL._AC_SX679_.jpg" 
+                             alt="iPhone 13 128GB Vermelho" 
+                             class="w-full h-full object-contain hover:scale-110 transition-transform duration-300">
+                        <span class="discount-badge text-xs font-medium px-2 py-1 rounded absolute top-2 left-2">
+                            12% OFF
+                        </span>
+                    </div>
+                    
+                    <div class="price font-bold text-lg">iPhone 13 (128) - Vermelho</div>
+                    <div class="price font-bold text-lg">R$ 3.079,12</div>
+                    <div class="text-sm text-gray-500 mb-1">em 12x de R$ 256,59 sem juros</div>
+                    <div class="free-shipping text-sm mb-2 flex items-center">
+                        <i class="fas fa-truck mr-1 text-xs"></i> Frete grátis
+                    </div>
+                    <div class="text-xs text-gray-500">Fullbox + Garantia 1 ano</div>
+                </div>
+
+                <!-- iPhone 14 -->
+                <div class="product-card bg-white rounded-md p-3 border border-gray-100 cursor-pointer" 
+                     onclick="showProductDetail('iphone13pro')">
+                    <div class="h-60 flex flex-col items-center justify-between mb-3 relative">
+                        <img src="https://m.media-amazon.com/images/I/618Bb+QzCmL._AC_SX679_.jpg" 
+                             alt="iPhone 14 128GB Estelar" 
+                             class="w-full h-full object-contain hover:scale-110 transition-transform duration-300">
+                        <span class="discount-badge text-xs font-medium px-2 py-1 rounded absolute top-2 left-2">
+                            63% OFF
+                        </span>
+                    </div>
+                                        <div class="price font-bold text-lg">iPhone 14 (128) - Estelar</div>
+                    <div class="price font-bold text-lg">R$ 1.599,12</div>
+                    <div class="text-sm text-gray-500 mb-1">em 12x de R$ 133,26 sem juros</div>
+                    <div class="free-shipping text-sm mb-2 flex items-center">
+                        <i class="fas fa-truck mr-1 text-xs"></i> Frete grátis
+                    </div>
+                    <div class="text-xs text-gray-500">Fullbox + Garantia 1 ano</div>
+                </div>
+
+                <!-- iPhone 14 Pro MAX -->
+                <div class="product-card bg-white rounded-md p-3 border border-gray-100 cursor-pointer" 
+                     onclick="showProductDetail('iphone14')">
+                    <div class="h-60 flex flex-col items-center justify-between mb-3 relative">
+                        <img src="https://m.media-amazon.com/images/I/51UnpqyKrEL._AC_SX679_.jpg" 
+                             alt="iPhone 14 Pro MAX 512GB" 
+                             class="w-full h-full object-contain hover:scale-110 transition-transform duration-300">
+                        <span class="discount-badge text-xs font-medium px-2 py-1 rounded absolute top-2 left-2">
+                            20% OFF
+                        </span>
+                    </div>
+                     <div class="price font-bold text-lg">iPhone 14 Pro MAX (512) - Prateado</div>
+                    <div class="price font-bold text-lg">R$ 6.719,20</div>
+                    <div class="text-sm text-gray-500 mb-1">em 12x de R$ 559,93 sem juros</div>
+                    <div class="free-shipping text-sm mb-2 flex items-center">
+                        <i class="fas fa-truck mr-1 text-xs"></i> Frete grátis
+                    </div>
+                    <div class="text-xs text-gray-500">Fullbox + Garantia 1 ano</div>
+                </div>
+
+                <!-- iPhone 15 Plus -->
+                <div class="product-card bg-white rounded-md p-3 border border-gray-100 cursor-pointer" 
+                     onclick="showProductDetail('iphone14promax')">
+                    <div class="h-60 flex flex-col items-center justify-between mb-3 relative">
+                        <img src="https://m.media-amazon.com/images/I/51nHt+jXdjL._AC_SX679_.jpg" 
+                             alt="iPhone 15 Plus Preto" 
+                             class="w-full h-full object-contain hover:scale-110 transition-transform duration-300">
+                        <span class="discount-badge text-xs font-medium px-2 py-1 rounded absolute top-2 left-2">
+                            28% OFF
+                        </span>
+                    </div>
+                   <div class="price font-bold text-lg">iPhone 15 Plus (128) - Preto</div>
+                    <div class="price font-bold text-lg">R$ 5.999,04</div>
+                    <div class="text-sm text-gray-500 mb-1">em 12x de R$ 499,92 sem juros</div>
+                    <div class="free-shipping text-sm mb-2 flex items-center">
+                        <i class="fas fa-truck mr-1 text-xs"></i> Frete grátis
+                    </div>
+                    <div class="text-xs text-gray-500">Fullbox + Garantia 1 ano</div>
+                </div>
+            </div>
+        </div>
+      
+        
+        <!-- Special Offers -->
+        <div class="bg-white rounded-md p-4 mb-6 shadow-sm">
+            <h2 class="text-xl font-semibold mb-4">Ofertas especiais para você</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-md p-6 text-white flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold mb-2">Pague com PIX</h3>
+                        <p class="mb-4">Ganhe 10% de desconto em qualquer iPhone ao pagar com PIX</p>
+                        <button class="bg-white text-blue-600 px-4 py-2 rounded-md font-medium hover:bg-gray-100 transition">
+                            Saiba mais
+                        </button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <img src="https://www.advocacianunes.com.br/wp-content/uploads/2022/04/logo-pix-icone-1024.png" 
+                             alt="PIX" 
+                             class="h-24 object-contain">
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-md p-6 text-white flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold mb-2">Aniversário Meli+</h3>
+                        <p class="mb-4">Frete grátis ilimitado e até 50% OFF em produtos selecionados</p>
+                        <button class="bg-white text-purple-600 px-4 py-2 rounded-md font-medium hover:bg-gray-100 transition">
+                            Compre já
+                        </button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <img src="https://http2.mlstatic.com/resources/frontend/statics/loyal/partners/meliplus/vdp/pill-meliplus@3x.png" 
+                             alt="Assinatura" 
+                             class="h-24 object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Detail Page (hidden by default) -->
+    <div id="product-detail" class="hidden container mx-auto py-4 px-4 fade-in">
+        <!-- Breadcrumb -->
+        <div class="text-sm text-gray-500 mb-4">
+            <ul class="breadcrumb flex">
+                <li><a href="#" class="hover:underline" onclick="hideProductDetail()">Mercado Livre</a></li>
+                <li><a href="#" class="hover:underline">Celulares e Telefones</a></li>
+                <li><a href="#" class="hover:underline">Celulares e Smartphones</a></li>
+                <li><span id="product-name-breadcrumb">iPhone</span></li>
+            </ul>
+        </div>
+
+        <!-- Product Content -->
+        <div class="bg-white rounded-md p-4 shadow-sm">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Product Images -->
+                <div class="md:w-1/2">
+                    <div class="flex flex-col-reverse md:flex-row gap-4">
+                        <div class="thumbnails flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
+                            <!-- Thumbnails will be added by JavaScript -->
+                        </div>
+                        <div class="main-image rounded flex items-center justify-center flex-1 bg-gray-50">
+                            <img id="main-product-image" src="" alt="Product Image" class="w-full h-full object-contain max-h-[500px]">
+                        </div>
+                    </div>
+                    
+                    <!-- Product Highlights -->
+                    <div class="mt-6 bg-gray-50 p-4 rounded-md">
+                        <h3 class="font-semibold mb-3">Destaques deste produto</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Garantia de 1 ano</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Produto original lacrado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Frete grátis para todo Brasil</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>12 meses de garantia</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="md:w-1/2">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="condition text-sm text-gray-500">Novo | <span id="product-sold-count">100</span> vendidos</div>
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="font-medium">4.9</span>
+                            <span class="text-gray-500 text-sm ml-1">(256 avaliações)</span>
+                        </div>
+                    </div>
+                    
+                    <h1 id="product-title" class="text-2xl font-semibold mb-2">iPhone</h1>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="price text-3xl font-light mr-3">R$ 0,00</div>
+                        <div class="discount-badge text-sm font-medium px-2 py-1 rounded">
+                            <span id="product-discount">10%</span> OFF
+                        </div>
+                    </div>
+                    
+                    <div class="installments text-lg mb-4">
+                        em <span id="installment-quantity">12</span>x de <span id="installment-value">R$ 0,00</span> sem juros
+                    </div>
+                    
+                    <div class="free-shipping text-green-600 mb-4 flex items-center">
+                        <i class="fas fa-truck mr-2"></i>
+                        <span>Frete grátis</span>
+                    </div>
+                    
+                    <div class="colors mb-6">
+                        <h3 class="text-sm font-semibold mb-2">Cor: <span id="selected-color">Preto</span></h3>
+                        <div class="flex gap-2">
+                            <!-- Color options will be added by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="storage mb-6">
+                        <h3 class="text-sm font-semibold mb-2">Armazenamento: <span id="selected-storage">128GB</span></h3>
+                        <div class="flex gap-2 flex-wrap">
+                            <!-- Storage options will be added by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="actions flex flex-col gap-3">
+                        <button id="buy-now" class="ml-button-blue text-white py-3 px-6 rounded-md font-medium hover:bg-blue-600 transition">
+                            Comprar agora
+                        </button>
+                        <button id="add-to-cart" class="ml-button-outline py-3 px-6 rounded-md font-medium transition flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao carrinho
+                        </button>
+                    </div>
+                    
+                    <div class="seller-info mt-6 border-t pt-4">
+                        <div class="flex items-center mb-2">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full mr-3 flex items-center justify-center">
+                                <i class="fas fa-store text-gray-500"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold">Apple Store Oficial</div>
+                                <div class="text-xs text-gray-500">100% de avaliações positivas</div>
+                            </div>
+                        </div>
+                        <button class="text-blue-500 text-sm hover:underline flex items-center">
+                            <i class="fas fa-comment-alt mr-1"></i> Pergunte ao vendedor
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4 border-t pt-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium">Devolução grátis</h3>
+                                <p class="text-sm text-gray-500">Você tem 30 dias a partir do recebimento</p>
+                            </div>
+                            <i class="fas fa-undo text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+            <!-- Product Description -->
+            <div class="mt-8 pt-6 border-t">
+                <h2 class="text-xl font-semibold mb-4">Descrição do produto</h2>
+                <div id="product-description" class="text-gray-700">
+                    <!-- Description will be filled by JavaScript -->
+                </div>
+                
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-2">Características principais</h3>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                                <span>Tela Super Retina XDR de 6.1 polegadas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                                <span>Chip A15 Bionic com Neural Engine</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                                <span>Sistema de câmera dupla avançado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                                <span>Modo Cinema e Estilos Fotográficos</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                                <span>Resistência à água IP68</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-2">O que vem na caixa</h3>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-box-open text-blue-500 mt-1 mr-2"></i>
+                                <span>iPhone com iOS</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-box-open text-blue-500 mt-1 mr-2"></i>
+                                <span>Cabo USB-C para Lightning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-box-open text-blue-500 mt-1 mr-2"></i>
+                                <span>Documentação</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Reviews -->
+            <div class="mt-8 pt-6 border-t">
+                <h2 class="text-xl font-semibold mb-4">Avaliações do produto</h2>
+                
+                <div class="bg-gray-50 p-4 rounded-md mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="text-4xl font-light mr-3">4.9</div>
+                            <div>
+                                <div class="flex items-center mb-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <div class="text-sm text-gray-500">256 avaliações</div>
+                            </div>
+                        </div>
+                        <button class="text-blue-500 hover:underline">Ver todas as avaliações</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded-md shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gray-200 rounded-full mr-2"></div>
+                                <div>
+                                    <div class="text-sm font-medium">Carlos S.</div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700">Produto chegou antes do prazo e perfeito. Recomendo!</p>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-md shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gray-200 rounded-full mr-2"></div>
+                                <div>
+                                    <div class="text-sm font-medium">Ana P.</div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700">Excelente vendedor, produto original e bem embalado.</p>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-md shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gray-200 rounded-full mr-2"></div>
+                                <div>
+                                    <div class="text-sm font-medium">Roberto M.</div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-700">Ótimo atendimento e produto conforme descrito. Recomendo!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Page (hidden by default) -->
+    <div id="checkout-page" class="hidden container mx-auto py-4 px-4 max-w-4xl fade-in">
+        <div class="flex items-center mb-6">
+            <button onclick="hideCheckoutPage()" class="text-blue-500 hover:text-blue-700 mr-4">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-2xl font-semibold">Finalize sua compra</h1>
+        </div>
+                
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Left Column -->
+            <div class="md:w-2/3">
+                <!-- Shipping Address -->
+                <div class="bg-white rounded-md p-4 mb-4 shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">1</span>
+                        Endereço de entrega
+                    </h2>
+                    <div class="border border-gray-200 rounded-md p-4">
+                        <div class="flex items-start mb-4">
+                            <input type="radio" name="address" id="address1" checked class="mt-1 mr-2">
+                            <div>
+                                <label for="address1" class="font-medium">Casa</label>
+                                <p class="text-sm text-gray-600">Rua Exemplo, 123 - Centro, São Paulo - SP, 01000-000</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <input type="radio" name="address" id="address2" class="mt-1 mr-2">
+                            <div>
+                                <label for="address2" class="font-medium">Trabalho</label>
+                                <p class="text-sm text-gray-600">Av. Trabalho, 456 - Sala 101, São Paulo - SP, 02000-000</p>
+                            </div>
+                        </div>
+                        <button class="text-blue-500 text-sm mt-3 hover:underline flex items-center">
+                            <i class="fas fa-plus mr-1"></i> Adicionar novo endereço
+                        </button>
+                    </div>
+                </div>
+                                
+                <!-- Shipping Options -->
+                <div class="bg-white rounded-md p-4 mb-4 shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">2</span>
+                        Frete
+                    </h2>
+                    <div class="border border-gray-200 rounded-md p-4">
+                        <div class="flex items-center justify-between mb-3 p-2 hover:bg-gray-50 rounded">
+                            <div class="flex items-center">
+                                <input type="radio" name="shipping" id="shipping1" checked class="mr-3">
+                                <label for="shipping1" class="font-medium">Normal</label>
+                            </div>
+                            <div class="text-sm">Grátis</div>
+                            <div class="text-sm text-gray-500">Receba até 10 dias úteis</div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                            <div class="flex items-center">
+                                <input type="radio" name="shipping" id="shipping2" class="mr-3">
+                                <label for="shipping2" class="font-medium">Expresso</label>
+                            </div>
+                            <div class="text-sm">Grátis</div>
+                            <div class="text-sm text-gray-500">Receba até 5 dias úteis</div>
+                        </div>
+                    </div>
+                </div>
+                                
+                <!-- Payment Method -->
+                <div class="bg-white rounded-md p-4 shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2">3</span>
+                        Pagamento
+                    </h2>
+                    <div class="border border-gray-200 rounded-md p-4">
+                        <div class="mb-4">
+                            <h3 class="font-medium mb-3">Cartão de crédito</h3>
+                            <div class="flex flex-wrap gap-3 mb-4">
+                                <img src="https://logosmarcas.net/wp-content/uploads/2020/05/Visa-Logo.png" alt="Visa" class="h-6">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/960px-Mastercard-logo.svg.png" alt="Mastercard" class="h-6">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-U8tK4EfgFz0FAX0yYoXfE05yWfq2tqNLQw&s" alt="American Express" class="h-6">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Elo_card_association_logo_-_black_text.svg/2560px-Elo_card_association_logo_-_black_text.svg.png" alt="Elo" class="h-6">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Número do cartão</label>
+                                    <input type="text" id="card-number" placeholder="0000 0000 0000 0000" 
+                                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="card-name" class="block text-sm font-medium text-gray-700 mb-1">Nome no cartão</label>
+                                    <input type="text" id="card-name" placeholder="Como aparece no cartão" 
+                                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="card-expiry" class="block text-sm font-medium text-gray-700 mb-1">Validade</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/AA" 
+                                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div>
+                                    <label for="card-cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                                    <input type="text" id="card-cvv" placeholder="123" 
+                                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <input type="checkbox" id="save-card" class="mr-2 rounded text-blue-500 focus:ring-blue-500">
+                                <label for="save-card" class="text-sm">Salvar este cartão</label>
+                            </div>
+                        </div>
+                                                
+                        <div class="border-t pt-4">
+                            <h3 class="font-medium mb-3">Outras formas de pagamento</h3>
+                            <div class="payment-method flex items-center justify-between mb-2 p-3 border rounded-md hover:border-blue-300">
+                                <div class="flex items-center">
+                                    <input type="radio" name="payment" id="payment-pix" class="mr-3">
+                                    <div class="flex items-center">
+                                        <img src="https://www.advocacianunes.com.br/wp-content/uploads/2022/04/logo-pix-icone-1024.png" 
+                                             alt="PIX" class="h-6 mr-2">
+                                        <label for="payment-pix" class="font-medium">Pix</label>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-green-600">Desconto de 10%</div>
+                            </div>
+                            <div class="payment-method flex items-center justify-between p-3 border rounded-md hover:border-blue-300">
+                                <div class="flex items-center">
+                                    <input type="radio" name="payment" id="payment-boleto" class="mr-3">
+                                    <div class="flex items-center">
+                                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" 
+                                             alt="Boleto" class="h-6 mr-2">
+                                        <label for="payment-boleto" class="font-medium">Boleto bancário</label>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-green-600">Desconto de 5%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            
+            <!-- Right Column (Order Summary) -->
+            <div class="md:w-1/3">
+                <div class="bg-white rounded-md p-4 shadow-sm sticky top-4">
+                    <h2 class="text-lg font-semibold mb-4">Resumo da compra</h2>
+                                        
+                    <div class="border-b pb-3 mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Produto:</span>
+                            <span id="checkout-product-name" class="font-medium">iPhone</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Cor:</span>
+                            <span id="checkout-product-color" class="font-medium">Preto</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Armazenamento:</span>
+                            <span id="checkout-product-storage" class="font-medium">128GB</span>
+                        </div>
+                    </div>
+                                        
+                    <div class="border-b pb-3 mb-3">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Preço:</span>
+                            <span id="checkout-product-price" class="font-medium">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Frete:</span>
+                            <span id="checkout-shipping-price" class="font-medium">Grátis</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Desconto:</span>
+                            <span id="checkout-discount" class="text-green-600">-R$ 0,00</span>
+                        </div>
+                    </div>
+                                        
+                    <div class="flex justify-between font-semibold text-lg mb-4">
+                        <span>Total:</span>
+                        <span id="checkout-total" class="text-blue-600">R$ 0,00</span>
+                    </div>
+                    
+                    <div class="text-xs text-gray-500 mb-4">
+                        <p>Ao finalizar a compra, você concorda com nossos <a href="#" class="text-blue-500 hover:underline">Termos e Condições</a>.</p>
+                    </div>
+                                        
+                    <button id="finalize-purchase" class="w-full ml-button-blue text-white py-3 px-6 rounded-md font-medium hover:bg-blue-600 transition flex items-center justify-center">
+                        <i class="fas fa-lock mr-2"></i> Finalizar compra
+                    </button>
+                    
+                    <div class="mt-4 flex items-center justify-center">
+                        <img src="https://logowik.com/content/uploads/images/mercado-pago3162.logowik.com.webp" 
+                             alt="Mercado Pago" class="h-6">
+                        <span class="text-xs text-gray-500 ml-2">Pagamento seguro com Mercado Pago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Redirect Page (hidden by default) -->
+    <div id="payment-redirect" class="hidden container mx-auto py-8 px-4 max-w-2xl text-center fade-in">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 success-animation">
+                <i class="fas fa-check text-green-500 text-2xl"></i>
+            </div>
+            <h2 class="text-2xl font-semibold mb-2">Compra finalizada com sucesso!</h2>
+            <p class="text-gray-600 mb-6">Você será redirecionado para o pagamento em alguns instantes.</p>
+            
+            <div class="ml-yellow py-2 px-4 shadow-sm sticky top-0 z-50">
+                <div class="flex items-center justify-center mb-2">
+                    <img src="https://t.ctcdn.com.br/oXbQzb2y5erOGAmFIBsUFdkgBVY=/0x213:1022x788/1022x575/smart/i251506.png" 
+                         alt="PIX" class="h-8 mr-2">
+                    <span class="font-medium"></span>
+                </div>
+                <p class="text-2xl">Total: <span id="payment-total" class="font-medium">R$ 0,00</span></p>
+            </div>
+            
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+            
+            <p class="text-sm text-gray-500">Se o redirecionamento não funcionar, <a href="#" class="text-blue-500 hover:underline">clique aqui</a>.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-8 border-t">
+        <div class="container mx-auto py-8 px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-semibold mb-3">Informações</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline transition">Sobre nós</a></li>
+                        <li><a href="#" class="hover:underline transition">Política de privacidade</a></li>
+                        <li><a href="#" class="hover:underline transition">Termos e condições</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Ajuda</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline transition">Perguntas frequentes</a></li>
+                        <li><a href="#" class="hover:underline transition">Entregas</a></li>
+                        <li><a href="#" class="hover:underline transition">Devoluções</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Contato</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline transition">Fale conosco</a></li>
+                        <li><a href="#" class="hover:underline transition">WhatsApp</a></li>
+                        <li><a href="#" class="hover:underline transition">Lojas físicas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-3">Redes sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-blue-500 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    
+                    <h3 class="font-semibold mt-4 mb-3">Baixe nosso app</h3>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#" class="flex items-center justify-center bg-black text-white px-3 py-2 rounded-md text-sm">
+                            <i class="fab fa-apple mr-2"></i> App Store
+                        </a>
+                        <a href="#" class="flex items-center justify-center bg-black text-white px-3 py-2 rounded-md text-sm">
+                            <i class="fab fa-google-play mr-2"></i> Google Play
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t mt-8 pt-8 text-center text-sm text-gray-500">
+                <p>© 2025 Mercado Livre. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = {
+            'iphone13': {
+                title: 'iPhone 13 (128) - Vermelho ',
+                price: 3499,
+                discount: 12,
+                description: 'O iPhone 13 traz o sistema de câmera dupla mais avançado em um iPhone. O chip A15 Bionic é mais rápido que a concorrência. O design resistente. E uma grande evolução na duração da bateria. Tudo em dois tamanhos perfeitos.',
+                colors: [
+                    { name: 'Vermelho', value: 'red-600' },
+                ],
+                storage: ['128GB'],
+                images: [
+                    'https://m.media-amazon.com/images/I/41-iKVywQBL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/41k22EEWtwL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/514PTL1LAAL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/81ExWjQG-SL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/41NAtDwUtlL._AC_SX679_.jpg'
+                ],
+                sold: 1250,
+                rating: 4.8
+            },
+            'iphone13pro': {
+                title: 'iPhone 14 (128) - Estelar',
+                price: 4442,
+                discount: 64,
+                description: 'O iPhone 14 é um smartphone poderoso com tela ProMotion de 6,1 polegadas, chip A15 Bionic, sistema de câmera tripla com novo zoom óptico de 3x e modo Macro, resistência à água IP68 e muito mais.',
+                colors: [
+                    { name: 'Estelar', value: 'gray-100' },
+                ],
+                storage: ['128GB'],
+                images: [
+                    'https://m.media-amazon.com/images/I/618Bb+QzCmL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/51wIhxXpuGL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/718muFN+T+L._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/61jzzrmWPvL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/41bdOaRPN6L._AC_SX679_.jpg'
+                ],
+                sold: 890,
+                rating: 4.9
+            },
+            'iphone14': {
+                title: 'iPhone 14 Pro MAX (512) - Prateado',
+                price: 8399,
+                discount: 20,
+                description: 'iPhone 14 Pro MAX com tela Super Retina XDR de 6,7 polegadas, chip A15 Bionic, sistema de câmera dupla avançado, resistência à água IP68 e bateria para o dia todo. Disponível em lindas cores.',
+                colors: [
+                    { name: 'Prateado', value: 'gray-200' },
+                ],
+                storage: ['512GB'],
+                images: [
+                    'https://m.media-amazon.com/images/I/51UnpqyKrEL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/41DQTRERn9L._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/511t1IRkM6L._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/715QilZtbwL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/61-I5qYV1yL._AC_SL1000_.jpg',
+                    'https://m.media-amazon.com/images/I/715QilZtbwL._AC_SL1000_.jpg',
+                    'https://m.media-amazon.com/images/I/41s7-NzD+CL._AC_SL1000_.jpg'
+                ],
+                sold: 1500,
+                rating: 4.7
+            },
+            'iphone14promax': {
+                title: 'iPhone 15 Plus (128) - Preto',
+                price: 8332,
+                discount: 28,
+                description: 'iPhone 15 Plus com tela Always-On e Dynamic Island, chip A16 Bionic, sistema de câmera profissional de 48MP, resistência à água IP68 e bateria que dura mais que o dia todo.',
+                colors: [
+                    { name: 'Preto', value: 'black' },
+                ],
+                storage: ['128GB'],
+                images: [
+                    'https://m.media-amazon.com/images/I/51nHt+jXdjL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/31fMLLW7VNL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/511aAcw5HyL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/61JfjeFrqhL._AC_SX679_.jpg',
+                    'https://m.media-amazon.com/images/I/41DQlXx+2YL._AC_SX679_.jpg'
+                ],
+                sold: 750,
+                rating: 4.9
+            }
+        }
+        
+        // Cart functionality
+        let cart = [];
+        let cartCount = 0;
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Show product detail
+        function showProductDetail(productId) {
+            const product = products[productId];
+            
+            // Hide main content and show product detail
+            document.querySelector('main').classList.add('hidden');
+            document.getElementById('product-detail').classList.remove('hidden');
+            
+            // Set product info
+            document.getElementById('product-name-breadcrumb').textContent = product.title;
+            document.getElementById('product-title').textContent = product.title;
+            document.getElementById('product-description').textContent = product.description;
+            document.getElementById('product-sold-count').textContent = product.sold;
+            
+            // Calculate price with discount
+            const discountAmount = (product.price * product.discount) / 100;
+            const finalPrice = product.price - discountAmount;
+            const installmentValue = (finalPrice / 12).toFixed(2);
+            
+            document.getElementById('product-discount').textContent = product.discount + '%';
+            document.querySelector('.price').textContent = 'R$ ' + finalPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('installment-value').textContent = 'R$ ' + installmentValue;
+            
+            // Set checkout info
+            document.getElementById('checkout-product-name').textContent = product.title;
+            document.getElementById('checkout-product-price').textContent = 'R$ ' + finalPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('checkout-discount').textContent = '-R$ ' + discountAmount.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('checkout-total').textContent = 'R$ ' + finalPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            
+            // Set product images
+            const thumbnailsContainer = document.querySelector('.thumbnails');
+            thumbnailsContainer.innerHTML = '';
+            
+            product.images.forEach((image, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = 'thumbnail min-w-[60px] h-[60px] border border-gray-200 rounded flex items-center justify-center';
+                thumbnail.innerHTML = `<img src="${image}" alt="Foto ${index + 1}" class="w-full h-full object-contain">`;
+                
+                thumbnail.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    thumbnail.classList.add('active');
+                    document.getElementById('main-product-image').src = image;
+                });
+                
+                if (index === 0) {
+                    thumbnail.classList.add('active');
+                    document.getElementById('main-product-image').src = image;
+                }
+                
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+            
+            // Set color options
+            const colorsContainer = document.querySelector('.colors .flex');
+            colorsContainer.innerHTML = '';
+            
+            product.colors.forEach((color, index) => {
+                const colorOption = document.createElement('button');
+                colorOption.className = `color-option w-8 h-8 rounded-full bg-${color.value} border-2 border-transparent hover:border-blue-500`;
+                colorOption.title = color.name;
+                
+                colorOption.addEventListener('click', () => {
+                    document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+                    colorOption.classList.add('active');
+                    document.getElementById('selected-color').textContent = color.name;
+                    document.getElementById('checkout-product-color').textContent = color.name;
+                });
+                
+                if (index === 0) {
+                    colorOption.classList.add('active');
+                    document.getElementById('selected-color').textContent = color.name;
+                    document.getElementById('checkout-product-color').textContent = color.name;
+                }
+                
+                colorsContainer.appendChild(colorOption);
+            });
+            
+            // Set storage options
+            const storageContainer = document.querySelector('.storage .flex');
+            storageContainer.innerHTML = '';
+            
+            product.storage.forEach((storage, index) => {
+                const storageOption = document.createElement('button');
+                storageOption.className = 'storage-option px-3 py-1 border border-gray-300 rounded hover:border-blue-500 text-sm';
+                storageOption.textContent = storage;
+                
+                storageOption.addEventListener('click', () => {
+                    document.querySelectorAll('.storage-option').forEach(s => s.classList.remove('active'));
+                    storageOption.classList.add('active');
+                    document.getElementById('selected-storage').textContent = storage;
+                    document.getElementById('checkout-product-storage').textContent = storage;
+                });
+                
+                if (index === 0) {
+                    storageOption.classList.add('active');
+                    document.getElementById('selected-storage').textContent = storage;
+                    document.getElementById('checkout-product-storage').textContent = storage;
+                }
+                
+                storageContainer.appendChild(storageOption);
+            });
+            
+            // Set buy now and add to cart buttons
+            document.getElementById('buy-now').addEventListener('click', () => {
+                addToCart(productId);
+                showCheckoutPage();
+            });
+            
+            document.getElementById('add-to-cart').addEventListener('click', () => {
+                addToCart(productId);
+                showCartNotification();
+            });
+        }
+        
+        // Hide product detail
+        function hideProductDetail() {
+            document.querySelector('main').classList.remove('hidden');
+            document.getElementById('product-detail').classList.add('hidden');
+        }
+        
+        // Show checkout page
+        function showCheckoutPage() {
+            document.getElementById('product-detail').classList.add('hidden');
+            document.getElementById('checkout-page').classList.remove('hidden');
+        }
+        
+        // Hide checkout page
+        function hideCheckoutPage() {
+            document.getElementById('checkout-page').classList.add('hidden');
+            document.getElementById('product-detail').classList.remove('hidden');
+        }
+        
+        // Add to cart
+        function addToCart(productId) {
+            const product = products[productId];
+            const color = document.getElementById('selected-color').textContent;
+            const storage = document.getElementById('selected-storage').textContent;
+            
+            // Calculate price with discount
+            const discountAmount = (product.price * product.discount) / 100;
+            const finalPrice = product.price - discountAmount;
+            
+            cart.push({
+                id: productId,
+                title: product.title,
+                price: finalPrice,
+                color: color,
+                storage: storage,
+                image: product.images[0]
+            });
+            
+            cartCount = cart.length;
+            updateCartCount();
+        }
+        
+        // Update cart count
+        function updateCartCount() {
+            const cartCountElements = document.querySelectorAll('#cart-count, #mobile-cart-count');
+            
+            cartCountElements.forEach(element => {
+                if (cartCount > 0) {
+                    element.textContent = cartCount;
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Show cart notification
+        function showCartNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg flex items-center';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>Produto adicionado ao carrinho!</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Finalize purchase
+        document.getElementById('finalize-purchase').addEventListener('click', () => {
+            document.getElementById('checkout-page').classList.add('hidden');
+            document.getElementById('payment-redirect').classList.remove('hidden');
+            
+            // Get payment method
+            let paymentMethod = 'Cartão de crédito';
+            if (document.getElementById('payment-pix').checked) {
+                paymentMethod = 'PIX';
+            } else if (document.getElementById('payment-boleto').checked) {
+                paymentMethod = 'Boleto bancário';
+            }
+            
+            // Set payment info
+            const total = document.getElementById('checkout-total').textContent;
+            document.getElementById('payment-total').textContent = total;
+            
+            // Simulate progress bar
+            let progress = 0;
+            const progressBar = document.getElementById('progress-bar');
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    // In a real app, this would redirect to payment gateway
+                }
+            }, 200);
+        });
+        
+        // Cart button click
+        document.getElementById('cart-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Carrinho vazio. Adicione produtos para visualizar seu carrinho.');
+        });
+        
+        document.getElementById('mobile-cart-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Carrinho vazio. Adicione produtos para visualizar seu carrinho.');
+        });
+        
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                const radio = method.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                document.querySelectorAll('.payment-method').forEach(m => {
+                    m.classList.remove('active');
+                });
+                
+                method.classList.add('active');
+                
+                // Update total if payment method has discount
+                if (radio.id === 'payment-pix') {
+                    const productPrice = parseFloat(document.getElementById('checkout-product-price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.'));
+                    const discount = productPrice * 0.10;
+                    const total = productPrice - discount;
+                    
+                    document.getElementById('checkout-discount').textContent = '-R$ ' + discount.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                    document.getElementById('checkout-total').textContent = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                } else if (radio.id === 'payment-boleto') {
+                    const productPrice = parseFloat(document.getElementById('checkout-product-price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.'));
+                    const discount = productPrice * 0.05;
+                    const total = productPrice - discount;
+                    
+                    document.getElementById('checkout-discount').textContent = '-R$ ' + discount.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                    document.getElementById('checkout-total').textContent = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                } else {
+                    const productPrice = parseFloat(document.getElementById('checkout-product-price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.'));
+                    document.getElementById('checkout-discount').textContent = '-R$ 0,00';
+                    document.getElementById('checkout-total').textContent = 'R$ ' + productPrice.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                }
+            });
+        });
+    </script>
+</body>
+</html>
